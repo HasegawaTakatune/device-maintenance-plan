@@ -1,4 +1,4 @@
-[Windows](Windows%2011%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [macOS](macOS%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [iPhone](iPhone%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [Android](Android%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md)
+[Android](1_Android%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [Windows](2_Windows%2011%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [iPhone](3_iPhone%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | [macOS](4_macOS%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md)
 
 ---
 
@@ -13,10 +13,10 @@ PC・スマートフォンのセキュリティと安定性を保つための、
 
 | デバイス | ドキュメント | 特徴 |
 | :--- | :--- | :--- |
-| **Windows 11** | [Windows 11 定期メンテナンス計画表](Windows%2011%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | PowerShellのコマンドをまとめて実行 |
-| **macOS** | [macOS 定期メンテナンス計画表](macOS%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | ターミナルのコマンドをまとめて実行 |
-| **iPhone** | [iPhone 定期メンテナンス計画表](iPhone%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | 画面操作のみ |
-| **Android** | [Android 定期メンテナンス計画表](Android%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | 画面操作のみ（Pixel基準） |
+| **Android** | [Android 定期メンテナンス計画表](1_Android%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | 画面操作のみ（Pixel基準） |
+| **Windows 11** | [Windows 11 定期メンテナンス計画表](2_Windows%2011%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | PowerShellのコマンドをまとめて実行 |
+| **iPhone** | [iPhone 定期メンテナンス計画表](3_iPhone%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | 画面操作のみ |
+| **macOS** | [macOS 定期メンテナンス計画表](4_macOS%20%E5%AE%9A%E6%9C%9F%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E8%A8%88%E7%94%BB%E8%A1%A8.md) | ターミナルのコマンドをまとめて実行 |
 
 ---
 
