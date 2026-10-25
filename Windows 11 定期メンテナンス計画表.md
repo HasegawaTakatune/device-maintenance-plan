@@ -5,28 +5,49 @@
 # Windows 11 定期メンテナンス計画表
 
 Windows 11のセキュリティ確保とシステムの安定性を保つための、必要最小限の定期メンテナンスです。
-コマンドは、**管理者として開いたターミナル（PowerShell）** に貼り付けて実行します（スタートボタンを右クリック ＞ `ターミナル (管理者)`）。
+コマンドは **管理者として開いたターミナル（PowerShell）** に貼り付けて実行します（スタートボタンを右クリック ＞ `ターミナル (管理者)`）。
 
 ---
 
-## 📅 月1回：基本チェック
+## 📅 月1回
 
-| メンテナンス項目 | 具体的な操作手順 | 得られる効果・目的 |
-| :--- | :--- | :--- |
-| **Windows Updateとアプリの更新** | ターミナルで以下を実行：<br>`winget upgrade --all`<br>Windows本体は `設定` ＞ `Windows Update` ＞ `更新プログラムのチェック`。 | OSとアプリの脆弱性を塞ぎ、安定性を確保します。 |
-| **ウイルス定義の更新とクイックスキャン** | ターミナルで以下を実行：<br>`Update-MpSignature; Start-MpScan -ScanType QuickScan` | 保護機能が最新の状態で動作しているかを確認します。 |
+### ① 更新とウイルスチェック（コマンド一括）
+```powershell
+winget upgrade --all                                  # アプリを一括更新
+Update-MpSignature                                    # ウイルス定義を更新
+Start-MpScan -ScanType QuickScan                      # クイックスキャン
+```
+あわせて `設定` ＞ `Windows Update` ＞ `更新プログラムのチェック` でOS本体を更新します。
+
+**効果**：OSとアプリの脆弱性を塞ぎ、ウイルス対策を最新の状態に保ちます。
 
 ---
 
-## ⏳ 数ヶ月に1回：システム点検＆整理
+## ⏳ 数ヶ月に1回
 
-| メンテナンス項目 | 具体的な操作手順 | 得られる効果・目的 |
-| :--- | :--- | :--- |
-| **ウイルスのフルスキャン** | ターミナルで以下を実行（時間がかかります）：<br>`Start-MpScan -ScanType FullScan` | 普段の簡易スキャンでは見ない、PC内のすべてのファイルを検査します。 |
-| **システム修復（①→②の順）** | ① `DISM.exe /Online /Cleanup-image /Restorehealth`<br>② 完了後に `sfc /scannow` | 破損したシステムファイルを検出して修復します。 |
-| **ディスクの確認** | ターミナルで以下を実行：<br>`Get-PhysicalDisk \| Select FriendlyName, HealthStatus`（`Healthy` なら正常）<br>`Repair-Volume -DriveLetter C -Scan`（ファイルシステムのエラー検査） | 故障の兆候やファイルシステムのエラーを早期に発見します。<br>`Warning` / `Unhealthy` の場合はすぐにバックアップを取ってください。 |
-| **一時ファイル・ごみ箱の削除** | `設定` ＞ `システム` ＞ `ストレージ` ＞ `一時ファイル` を開き、**ごみ箱**・**一時ファイル**・**Windows Update クリーンアップ**にチェックを入れて `ファイルの削除`。<br>（空き容量もここで確認できます） | 1回の操作で不要データをまとめて削除し、空き容量を確保します。 |
-| **不要なアプリのアンインストール** | ターミナルで `winget list` を実行して一覧を確認し、不要なものを削除：<br>`winget uninstall "アプリ名"` | 容量の確保と、更新対象アプリの削減につながります。 |
+### ② システム点検・修復・一時ファイル削除（コマンド一括）
+時間がかかるため、作業しない時間帯に実行します。
+```powershell
+Checkpoint-Computer -Description "メンテナンス前" -RestorePointType MODIFY_SETTINGS   # 復元ポイント作成
+Start-MpScan -ScanType FullScan                                                       # ウイルスのフルスキャン
+DISM.exe /Online /Cleanup-image /Restorehealth                                        # システムイメージ修復
+sfc /scannow                                                                          # システムファイル修復
+DISM.exe /Online /Cleanup-Image /StartComponentCleanup                                # Windows Updateの残りファイル削除
+Get-PhysicalDisk | Select FriendlyName, HealthStatus                                  # ディスク健康状態（Healthyなら正常）
+Repair-Volume -DriveLetter C -Scan                                                    # ファイルシステム検査
+Remove-Item "$env:TEMP\*" -Recurse -Force -ErrorAction SilentlyContinue               # 一時ファイル削除
+Clear-RecycleBin -Force -ErrorAction SilentlyContinue                                 # ごみ箱を空にする
+```
+**効果**：ウイルス・システム破損・ディスク異常を検出して修復し、不要データを削除して空き容量を確保します。
+※ディスクが `Warning` / `Unhealthy` の場合はすぐにバックアップを取ってください。
+※復元ポイントは、`システムの保護` が有効で、同日に作成済みでない場合のみ作成されます。
+
+### ③ 不要なアプリのアンインストール
+```powershell
+winget list                          # インストール済みアプリを確認
+winget uninstall "アプリ名"           # 不要なものを削除
+```
+**効果**：空き容量の確保と、更新対象アプリの削減につながります。
 
 ---
 
@@ -43,9 +64,7 @@ Windows 11のセキュリティ確保とシステムの安定性を保つため�
 ---
 
 ### ⚠️ 実行時の注意点
-1. **システム修復の前に復元ポイントを作成する**
-   ターミナルで以下を実行します：
-   `Checkpoint-Computer -Description "メンテナンス前" -RestorePointType MODIFY_SETTINGS`
-   （同じ日に複数回作成すると失敗することがあります。また、事前に `システムの保護` が有効である必要があります）
-2. **過度な「高速化ソフト」や「レジストリ掃除」は避ける**
+1. **過度な「高速化ソフト」や「レジストリ掃除」は避ける**
    非公式のクリーンアップソフトはシステムを破壊するリスクがあります。Windows標準機能だけで十分です。
+2. **コマンドはエラーが出ても止めずに最後まで実行して構いません**
+   結果の確認が必要なのは `Get-PhysicalDisk` の `HealthStatus` だけです。

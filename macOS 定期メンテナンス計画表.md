@@ -5,27 +5,44 @@
 # macOS 定期メンテナンス計画表
 
 Macのセキュリティ確保とシステムの安定性を保つための、必要最小限の定期メンテナンスです。
-コマンドは「ターミナル」アプリ（`アプリケーション` ＞ `ユーティリティ`）で実行します。
+コマンドは「ターミナル」アプリ（`アプリケーション` ＞ `ユーティリティ`）に貼り付けて実行します。
 ※メニュー名は macOS 13 Ventura 以降の「システム設定」を基準に記載しています。
 
 ---
 
-## 📅 月1回：基本チェック
+## 📅 月1回
 
-| メンテナンス項目 | 具体的な操作手順 | 得られる効果・目的 |
-| :--- | :--- | :--- |
-| **macOSとアプリの更新** | ターミナルで以下を実行：<br>`softwareupdate -l`（更新の確認）<br>`sudo softwareupdate -ia`（すべてインストール）<br>Homebrewを使っている場合は `brew update && brew upgrade`。<br>App Storeのアプリは `App Store` ＞ `アップデート`。 | OSとアプリの脆弱性を塞ぎ、安定性を確保します。 |
-| **バックアップの確認** | ターミナルで以下を実行：<br>`tmutil latestbackup`<br>表示されたバックアップの日付が直近であることを確認。 | 故障・紛失時にデータを復元できる状態を保ちます。 |
+### ① 更新とバックアップ確認（コマンド一括）
+```bash
+softwareupdate -l                  # 更新の確認
+sudo softwareupdate -ia            # すべての更新をインストール
+brew update && brew upgrade        # Homebrewを使っている場合のみ
+tmutil latestbackup                # 最新のTime Machineバックアップ（日付が直近ならOK）
+```
+App Storeのアプリは `App Store` ＞ `アップデート` で更新します。
+
+**効果**：OSとアプリの脆弱性を塞ぎ、バックアップが取れている状態を確認します。
 
 ---
 
-## ⏳ 数ヶ月に1回：点検＆整理
+## ⏳ 数ヶ月に1回
 
-| メンテナンス項目 | 具体的な操作手順 | 得られる効果・目的 |
-| :--- | :--- | :--- |
-| **ディスクの確認** | ターミナルで以下を実行：<br>`diskutil verifyVolume /`（ファイルシステムの検査）<br>`diskutil info disk0 \| grep SMART`（`Verified` なら正常） | ファイルシステムのエラーや故障の兆候を早期に発見します。 |
-| **ストレージの整理** | `システム設定` ＞ `一般` ＞ `ストレージ` で空き容量を確認し、`おすすめ` の **[ごみ箱を自動的に空にする]** をオンにする。<br>不要なアプリと、`ダウンロード` フォルダ内の古いインストーラ（.dmg / .pkg）を削除。 | ごみ箱・不要アプリ・ダウンロードをまとめて整理し、空き容量を確保します。 |
-| **セキュリティ設定の確認** | ターミナルで以下を実行：<br>`fdesetup status`（`FileVault is On.` ならOK）<br>`/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate`（`enabled` ならOK） | ディスク暗号化とファイアウォールが有効かを確認します。 |
+### ② ディスク・セキュリティ点検とごみ箱整理（コマンド一括）
+```bash
+diskutil verifyVolume /                                                    # ファイルシステム検査
+diskutil info disk0 | grep SMART                                           # ディスク健康状態（Verifiedなら正常）
+fdesetup status                                                            # FileVault（On ならOK）
+/usr/libexec/ApplicationFirewall/socketfilterfw --getglobalstate           # ファイアウォール（enabled ならOK）
+osascript -e 'tell application "Finder" to empty trash'                    # ごみ箱を空にする
+df -h /                                                                    # 空き容量の確認
+```
+**効果**：ディスク異常・暗号化・ファイアウォールの状態を確認し、ごみ箱を空にして容量を確保します。
+
+### ③ 不要なアプリ・ダウンロードの整理
+`システム設定` ＞ `一般` ＞ `ストレージ` を開き、不要なアプリを削除します。
+あわせて `ダウンロード` フォルダ内の古いインストーラ（.dmg / .pkg）を削除します。
+
+**効果**：空き容量を確保し、更新対象アプリを減らします。
 
 ---
 
